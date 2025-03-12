@@ -3,7 +3,7 @@ services:
     name: fair-fare-backend
     runtime: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:application
+    startCommand: gunicorn app:application --workers 4 --worker-class uvicorn.workers.UvicornWorker --timeout 120 --log-level debug --error-logfile -
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
@@ -11,3 +11,5 @@ services:
         value: "8000"
       - key: WORKERS
         value: "4"
+      - key: PYTHONUNBUFFERED
+        value: "1"
